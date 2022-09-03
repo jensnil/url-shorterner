@@ -61,7 +61,8 @@ Expected result
  
 Then run the url in curl or a web browser.
 
-If running in kubernetes, replace the port 8081 with 
+If running in kubernetes, replace the port 8081 with the correct one for the 
+service.
 
 ## Additional
 
