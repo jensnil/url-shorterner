@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: url-shorterner
+spec:
+  selector:
+    matchLabels:
+      app: url-shorterner
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: url-shorterner
+    spec:
+      containers:
+        - name: url-shorterner
+          image: url-shorterner:1.1-SNAPSHOT
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081

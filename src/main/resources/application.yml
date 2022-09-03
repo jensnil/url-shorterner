@@ -1,0 +1,24 @@
+spring.application.name: url-shorterner
+server:
+  servlet.context-path: /${spring.application.name}
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysql:3306/url
+    username: root
+    password: password
+    validationQuery: SELECT 1
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.xml
+url-shorterner:
+  url-prefix: http://localhost:${server.port}${server.servlet.context-path}/

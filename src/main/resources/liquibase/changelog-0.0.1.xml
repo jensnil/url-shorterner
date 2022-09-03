@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="initialize" author="Jens Nilsson">
+        <createTable tableName="url_mapper">
+            <column name="short_url" type="VARCHAR(50)">
+                <constraints primaryKey="true" primaryKeyName="url_mapper_pk" nullable="false"/>
+            </column>
+            <column name="long_url" type="VARCHAR(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="${timestamp.type}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="url_mapper" indexName="long_url_idx">
+            <column name="long_url"/>
+        </createIndex>
+        <createIndex tableName="url_mapper" indexName="created_url_idx">
+            <column name="created"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
