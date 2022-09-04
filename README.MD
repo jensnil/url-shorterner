@@ -3,6 +3,12 @@
 * Tested on MacOS (but should work with Windows WSL too), with Docker Desktop and Minikube.
 * Maven is used for building.
 
+* Some of technology used to solve the task
+  * The Spring boot framework (for multithreading)
+  * Relational databases (H2 in developer mode, or mysql)
+  * Liquibase and hibernate
+  * Kubernetes for horizontal scaling
+
 ## Run in development mode with in-memory database
 > mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
