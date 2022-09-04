@@ -5,20 +5,23 @@ import com.urlshorterner.domain.UrlMapper
 import com.urlshorterner.domain.UrlMapperRepository
 import com.urlshorterner.errorhandling.UrlMapperException
 import net.bytebuddy.utility.RandomString
+import org.apache.commons.validator.routines.UrlValidator
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.validation.annotation.Validated
 import java.time.LocalDateTime
-import javax.validation.Valid
 
 @Service
+@Validated
 class UrlShorternerServiceImpl(
     private val urlMapperRepository: UrlMapperRepository,
     private val urlShorternerProperties: UrlShorternerProperties
 ): UrlShorternerService {
 
     @Transactional
-    override fun create(@Valid longUrl: String): String {
+    override fun create(longUrl: String): String {
+        validateUrl(longUrl)
         val urlMapper = urlMapperRepository.findByLongUrl(longUrl)
             ?: run {
                 val shortUrl = generateShortUrl()
@@ -31,7 +34,7 @@ class UrlShorternerServiceImpl(
         // For faster lookup, consider a CQRS-like architecture, with dedicated replicated database(s)
         // specialized for fast querying
         val urlMapper = urlMapperRepository.findByShortUrl(shortUrl)
-        return urlMapper?.shortUrl ?: throw UrlMapperException("short url not found")
+        return urlMapper?.longUrl ?: throw UrlMapperException("short url not found")
     }
 
     /**
@@ -56,6 +59,13 @@ class UrlShorternerServiceImpl(
             // or by another instance.
             urlMapperRepository.findByShortUrl(shortUrl = urlMapper.shortUrl) ?:
                 throw UrlMapperException("Database is not feeling well")
+        }
+    }
+
+    private fun validateUrl(longUrl: String) {
+        // Use parameter annotation validation instead
+        if (!UrlValidator(arrayOf("http","https")).isValid(longUrl)) {
+            throw UrlMapperException("Invalid url format: $longUrl")
         }
     }
 }

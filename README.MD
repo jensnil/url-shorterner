@@ -46,6 +46,9 @@ Create the Jar
 Build the docker image using the command below:
 > mvn spring-boot:build-image
 
+Load image to minikube
+> minikube image load url-shorterner:1.1-SNAPSHOT
+
 Apply deploy
 > kubectl apply -f deployment.yaml
 
@@ -71,9 +74,6 @@ If running in kubernetes, replace the port 8081 with the correct one for the
 service.
 
 ## Additional
-
-Load image to minikube
-> minikube image load url-shorterner:1.1-SNAPSHOT
 
 Restart deploy
 > kubectl rollout restart deploy url-shorterner
