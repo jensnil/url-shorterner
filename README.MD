@@ -59,7 +59,7 @@ Apply the service using the command below
 > 
 > minikube service url-shorterner
 
-## API
+## API and how to run it
 
 > curl --location --request POST 'http://127.0.0.1:8081/url-shorterner/' \
 --header 'Content-Type: text/plain' \
@@ -68,10 +68,12 @@ Apply the service using the command below
 Expected result
 > http://localhost:8081/url-shorterner/Yjj25lL4
  
-Then run the url in curl or a web browser.
+Then run the url in curl (with GET) or a web browser.
 
-If running in kubernetes, replace the port 8081 with the correct one for the 
-service.
+NOTE: If running in kubernetes, replace the port 8081 with the correct one for the 
+service. Note that the port is dynamically set, so the port (8081) needs 
+to be changed to the same as provided by `minikube service url-shorterner `. 
+(I'm sure there are ways to make it static...)
 
 ## Additional
 
