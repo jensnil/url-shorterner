@@ -63,7 +63,7 @@ class UrlShorternerServiceImpl(
     }
 
     private fun validateUrl(longUrl: String) {
-        // Use parameter annotation validation instead
+        // Use parameter annotation validation instead (and more or less complex given the unknown requirements)
         if (!UrlValidator(arrayOf("http","https")).isValid(longUrl)) {
             throw UrlMapperException("Invalid url format: $longUrl")
         }

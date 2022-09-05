@@ -83,3 +83,10 @@ Restart deploy
 * `url-shorterner.url-prefix`: The initial part of the returned url, before 
 the alphanumeric string. Default is `http://localhost:${server.port}${server.servlet.context-path}/`
 * `url-shorterner.shortUrlLength`: The minimum length of the unique alphanumeric string
+
+## Alternative solutions (if I had spent even more time)
+* If high throughput is even more important, consider adding replacing the relational database (MySql) with
+  some distributes in-memory database like Redis (or Hazelcast), with persistence
+* Or Hibernate 2:nd level cache in combination with Redis or Hazelcast, but still a MySql database at the bottom
+* Add a DAO layer to further make the persistence implementation more easily replaceable (if that is important)
+* ...
